@@ -11,7 +11,11 @@ router.get('/', function(req, res) {
 
 router.post('/createTopic', topicController.newTopic),
 
+router.put('/upVote/:id', topicController.upVote)
 
+router.put('/downVote/:id', topicController.downVote)
+
+router.get('/show', topicController.showTopic)
 
 
 
