@@ -43,3 +43,40 @@ exports.newTopic = function ( req, res) {
     }   
 }
 
+// upVote the Topic
+exports.upVote = function ( req, res ) {
+    for ( i = 0; i < topicArray.length; i++) {
+        if (topicArray[i].id === req.params.id) {
+            topicArray[i].upVote += 1
+            res.status (200).json ({
+                success : true,
+                'data' : topicArray[i]
+                
+            })
+        }
+    }
+}
+
+// downVote the Topic
+exports.downVote = function ( req, res) {
+    for ( i =0; i < topicArray.length; i++) {
+        if (topicArray[i].id === req.params.id) {
+            topicArray[i].downVote += 1
+            res.status (200).json ({
+                success : true,
+                'data' : topicArray[i]
+            })
+        }
+    }
+}
+
+//Show Top 20 Best Upvote
+exports.showTopic = function (req, res) {
+    const show = topicArray.sort( function (a,b) {
+        return b.upVote - a.upVote
+    }) .slice(0,20)
+    res.status (200).json ({
+        success: true,
+        'data' : show
+    })
+}
