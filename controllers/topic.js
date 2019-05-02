@@ -48,7 +48,7 @@ exports.upVote = function (req, res) {
     for (const key of topicKeys) {
         const isFound = topicArray[key].id === req.params.id;
         isFound && ++topicArray[key].upVote
-        index = isFound && key;
+        index = isFound && key || index;
     }
 
     if (!index) {
@@ -67,12 +67,13 @@ exports.upVote = function (req, res) {
 
 // downVote the Topic
 exports.downVote = function (req, res) {
+    console.log(req)
     let index;
     const topicKeys = Object.keys(topicArray);
     for (const key of topicKeys) {
         const isFound = topicArray[key].id === req.params.id;
         isFound && ++topicArray[key].downVote
-        index = isFound && key;
+        index = isFound && key || index;
     }
 
     if (!index) {
