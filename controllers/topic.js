@@ -6,12 +6,11 @@ const express = require('express'),
 // Generate Random Id
 let pattern = 'moovast'
 let len = 30
-let start = 0
 let topicArray = []
 
 // Create New Topic with validation Maximum Character
 exports.newTopic = function ( req, res) {
-    var id = randomId (len, pattern)
+    const id = req.query.id ? req.query.id : randomId(len, pattern);
     if (req.body.title.length > 255) {
         return res.status(400).json ({
             success: false,
@@ -28,15 +27,14 @@ exports.newTopic = function ( req, res) {
                 })
             }
         }
-        
         let newTopic = {
             ...Topic,
-            id: id,
+            id,
             title: req.body.title
         }
 
         topicArray.push(newTopic)
-        res.status (200).json ({
+        res.status (201).json ({
             success : true,
             'data'  : topicArray
         })
@@ -50,7 +48,7 @@ exports.upVote = function ( req, res ) {
             topicArray[i].upVote += 1
             res.status (200).json ({
                 success : true,
-                'data' : topicArray[i]
+                data : topicArray[i]
                 
             })
         }
