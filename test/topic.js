@@ -17,6 +17,7 @@ let pattern = 'moovast'
 let len = 30
 const id = randomId(len, pattern)
 
+// Succes Testing
 
 mocha.describe('Topic Success Testing', () => {
     mocha.it(' Topic should be Create', (done) => {
@@ -27,7 +28,6 @@ mocha.describe('Topic Success Testing', () => {
                 if (err) {
                     done(err)
                 } else {
-                    console.log(res.body)
                     expect(res).to.have.status(201)
                     expect(res.body.success).to.equal(true)
                     expect(res.body).to.have.property('data').to.be.an('array').that.contains.something.like({ title: 'Coding' })
@@ -45,7 +45,6 @@ mocha.describe('Topic Success Testing', () => {
                 if (err) {
                     done(err);
                 } else {
-                    console.log(res.body)
                     expect(res).to.have.status(200)
                     expect(res.body.success).to.equal(true)
                     expect(res.body).to.have.property('data').to.have.property('title').to.be.equal('Coding')
@@ -63,7 +62,6 @@ mocha.describe('Topic Success Testing', () => {
                 if (err) {
                     done(err);
                 } else {
-                    console.log(res.body)
                     expect(res).to.have.status(200)
                     expect(res.body.success).to.equal(true)
                     expect(res.body).to.have.property('data').to.have.property('title').to.be.equal('Coding')
@@ -81,7 +79,6 @@ mocha.describe('Topic Success Testing', () => {
                 if (err) {
                     done(err);
                 } else {
-                    console.log(res.body)
                     expect(res).to.have.status(200)
                     expect(res.body.success).to.equal(true)
                     expect(res.body).to.have.property('data').to.be.an('array').that.contains.something.like({ title: 'Coding' })
@@ -95,4 +92,69 @@ mocha.describe('Topic Success Testing', () => {
 })
 
 
+// Failed testing
 
+mocha.describe('Topic Failed Testing', () => {
+    mocha.it(' Topic should be failed Create', (done) => {
+        chai.request(app)
+            .post(`/createTopic?id=${id}`)
+            .send({ 'title': 'Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz Moovaz' })
+            .end((err, res) => {
+                if (err) {
+                    done(err)
+                } else {
+                    expect(res).to.have.status(400)
+                    expect(res.body.success).to.equal(false)
+                    expect(res.body.message).to.equal(' maximum Character 255 ')
+                    done()
+                }
+            })
+    })
+
+    mocha.it(' Topic should be failed Create', (done) => {
+        chai.request(app)
+            .post(`/createTopic?id=${id}`)
+            .send({ 'title': 'Coding' })
+            .end((err, res) => {
+                if (err) {
+                    done(err)
+                } else {
+                    expect(res).to.have.status(400)
+                    expect(res.body.success).to.equal(false)
+                    expect(res.body.message).to.equal('Topic Already exist')
+                    done()
+                }
+            })
+    })
+
+    mocha.it('Topic should be failed upVoted', (done) => {
+        chai.request(app)
+            .put(`/upVote/${'123456789'}`)
+            .end((err, res) => {
+                if (err) {
+                    done(err);
+                } else {
+                    expect(res).to.have.status(404)
+                    expect(res.body.success).to.equal(false)
+                    expect(res.body.message).to.equal('Not Found')
+                    done()
+                }
+            })
+    })
+
+    mocha.it('Topic should be failed downVoted', (done) => {
+        chai.request(app)
+            .put(`/downVote/${'123456789'}`)
+            .end((err, res) => {
+                if (err) {
+                    done(err);
+                } else {
+                    expect(res).to.have.status(404)
+                    expect(res.body.success).to.equal(false)
+                    expect(res.body.message).to.equal('Not Found')
+                    done()
+                }
+            })
+    })
+
+})
