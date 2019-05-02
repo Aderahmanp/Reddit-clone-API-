@@ -2,9 +2,6 @@ const express = require('express'),
       router = express.Router(),
       topicController = require('../controllers/topic')
 
-
-// Testing Router
-
 router.post('/createTopic', topicController.newTopic),
 
 router.put('/upVote/:id', topicController.upVote)
