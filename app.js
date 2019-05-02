@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 1234
 
 // Running Express Aplication
 const app = express()
+app.use(express.static('cov'));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
 
