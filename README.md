@@ -37,8 +37,8 @@ $ npm start or yarn start
 
 ### Heroku Link
 
-- [Deploy](ade-reddit-clone.herokuapp.com)
+- [Deploy](http:ade-reddit-clone.herokuapp.com)
 
 ### Coverage
 
-- [Coverage](ade-reddit-clone.herokuapp.com/coverage)
+- [Coverage](https://ade-reddit-clone.herokuapp.com/coverage)
